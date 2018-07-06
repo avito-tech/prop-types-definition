@@ -12,7 +12,7 @@ Patch for [prop-types](https://github.com/facebook/prop-types) to get property t
 
 When using React components, `prop-types` is commonly used to define properties type checking. Unfortunally, `prop-type` doesn't provide definition details that can be useful for documentation generation or component's playground. This library adds ability to get property type definition in runtime by calling a `getTypeDefinition()` method.
 
-As anternative, tools like [react-docgen](https://github.com/reactjs/react-docgen) can be used. However, such tools usualy based on static code analysis and have many [limitations](https://github.com/reactjs/react-docgen#guidelines-for-default-resolvers-and-handlers).
+As anternative, tools like [react-docgen](https://github.com/reactjs/react-docgen) can be used. However, such tools are usualy based on static code analysis and have many [limitations](https://github.com/reactjs/react-docgen#guidelines-for-default-resolvers-and-handlers).
 
 ## Install
 
@@ -90,7 +90,7 @@ export default class Component extends React.Component {
 
 ### Using as webpack loader
 
-`prop-types` can be patched via a webpack loader. In this case you nedd to add a rule for `prop-types` index file in this way:
+`prop-types` can be patched via a webpack loader. In this case you need to add a rule for `prop-types` index file in this way:
 
 ```js
 const webpackConfig = {
