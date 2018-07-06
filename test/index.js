@@ -265,63 +265,80 @@ describe('getTypeDefinition()', function() {
         });
     });
 
-    it('oneOfType', function() {
-        const type = PropTypes.oneOfType([
-            PropTypes.string,
-            PropTypes.number.isRequired,
-            function() {}
-        ]);
-        const requiredType = type.isRequired;
+    describe('oneOfType', function() {
+        it('basic', function() {
+            const type = PropTypes.oneOfType([
+                PropTypes.string,
+                PropTypes.number.isRequired,
+                function() {}
+            ]);
+            const requiredType = type.isRequired;
 
-        assert(typeof type.getTypeDefinition, 'function');
-        assert(typeof requiredType.getTypeDefinition, 'function');
+            assert(typeof type.getTypeDefinition, 'function');
+            assert(typeof requiredType.getTypeDefinition, 'function');
 
-        assert.deepEqual(type.getTypeDefinition(), {
-            required: false,
-            type: {
-                name: 'oneOfType',
-                value: [
-                    {
-                        required: false,
-                        type: {
-                            name: 'string'
+            assert.deepEqual(type.getTypeDefinition(), {
+                required: false,
+                type: {
+                    name: 'oneOfType',
+                    value: [
+                        {
+                            required: false,
+                            type: {
+                                name: 'string'
+                            }
+                        },
+                        {
+                            required: true,
+                            type: {
+                                name: 'number'
+                            }
+                        },
+                        {
+                            name: 'custom'
                         }
-                    },
-                    {
-                        required: true,
-                        type: {
-                            name: 'number'
+                    ]
+                }
+            });
+            assert.deepEqual(requiredType.getTypeDefinition(), {
+                required: true,
+                type: {
+                    name: 'oneOfType',
+                    value: [
+                        {
+                            required: false,
+                            type: {
+                                name: 'string'
+                            }
+                        },
+                        {
+                            required: true,
+                            type: {
+                                name: 'number'
+                            }
+                        },
+                        {
+                            name: 'custom'
                         }
-                    },
-                    {
-                        name: 'custom'
-                    }
-                ]
-            }
+                    ]
+                }
+            });
         });
-        assert.deepEqual(requiredType.getTypeDefinition(), {
-            required: true,
-            type: {
-                name: 'oneOfType',
-                value: [
-                    {
-                        required: false,
-                        type: {
-                            name: 'string'
-                        }
-                    },
-                    {
-                        required: true,
-                        type: {
-                            name: 'number'
-                        }
-                    },
-                    {
-                        name: 'custom'
-                    }
-                ]
-            }
+
+        it('should not crash on non-array as a value', function() {
+            const type = PropTypes.oneOfType('boo');
+
+            assert(typeof type.getTypeDefinition, 'function');
+
+            assert.deepEqual(type.getTypeDefinition(), {
+                required: false,
+                type: {
+                    name: 'oneOfType',
+                    value: []
+                }
+            });
         });
+
     });
 
     it('arrayOf', function() {
@@ -449,30 +466,45 @@ describe('getTypeDefinition()', function() {
         });
     });
 
-    it('unknown type', function() {
-        const type = PropTypes.oneOfType([
-            PropTypes.string,
-            /regexp/
-        ]);
+    describe('edge cases', function() {
+        it('unknown type', function() {
+            const type = PropTypes.oneOfType([
+                /regexp/
+            ]);
 
-        assert(typeof type.getTypeDefinition, 'function');
+            assert(typeof type.getTypeDefinition, 'function');
 
-        assert.deepEqual(type.getTypeDefinition(), {
-            required: false,
-            type: {
-                name: 'oneOfType',
-                value: [
-                    {
-                        required: false,
-                        type: {
-                            name: 'string'
+            assert.deepEqual(type.getTypeDefinition(), {
+                required: false,
+                type: {
+                    name: 'oneOfType',
+                    value: [
+                        {
+                            name: 'unknown'
                         }
-                    },
-                    {
-                        name: 'unknown'
-                    }
-                ]
-            }
+                    ]
+                }
+            });
         });
-    });
+
+        it('falsy type', function() {
+            const type = PropTypes.oneOfType([
+                null
+            ]);
+
+            assert(typeof type.getTypeDefinition, 'function');
+
+            assert.deepEqual(type.getTypeDefinition(), {
+                required: false,
+                type: {
+                    name: 'oneOfType',
+                    value: [
+                        {
+                            name: 'unknown'
+                        }
+                    ]
+                }
+            });
+        });
+    })
 });
