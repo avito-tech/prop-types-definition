@@ -1,6 +1,12 @@
 # prop-types-definition
 
+[![NPM version](https://img.shields.io/npm/v/prop-types-definition.svg)](https://www.npmjs.com/package/prop-types-definition)
+[![Build Status](https://travis-ci.org/avito-tech/prop-types-definition.svg?branch=master)](https://travis-ci.org/avito-tech/prop-types-definition)
+[![Coverage Status](https://coveralls.io/repos/github/avito-tech/prop-types-definition/badge.svg?branch=master)](https://coveralls.io/github/avito-tech/prop-types-definition?branch=master)
+
 A package to extend [prop-types](https://www.npmjs.com/package/prop-types) to get property definition in runtime.
+
+[![Sponsored by Avito](./avito.svg)](https://www.avito.ru/)
 
 ## Why?
 
