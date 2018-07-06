@@ -62,6 +62,7 @@
   "files": [
     "index.js",
     "loader.js",
+    "avito.svg",
     "CHANGELOG.md",
     "LICENSE",
     "README.md"

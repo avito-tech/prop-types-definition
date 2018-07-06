@@ -6,7 +6,7 @@
 
 A package to extend [prop-types](https://www.npmjs.com/package/prop-types) to get property definition in runtime.
 
-[![Sponsored by Avito](./avito.svg)](https://www.avito.ru/)
+[![Sponsored by Avito](avito.svg)](https://www.avito.ru/)
 
 ## Why?
 
